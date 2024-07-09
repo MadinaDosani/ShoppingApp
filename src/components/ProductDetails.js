@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import axios from 'axios'
+//import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
 import {useParams} from 'react-router-dom'
-import {fetchProduct} from '../redux/actions/productActions';
+import {fetchProduct,addToCarts} from '../redux/actions/productActions';
 
 function ProductDetails(props) {
     const product = useSelector((state) => state.product)
@@ -25,9 +25,14 @@ function ProductDetails(props) {
     // }
     useEffect(()=>{
         dispatch(fetchProduct(productid))
+        
       },[])
+      const addToCart=()=>{
+        dispatch(addToCarts(productid))
+        console.log("add to cart is call")
+      }
 
-
+     
     return (
         <div className="ui grid container">
             <div className="ui placeholder segment">
@@ -45,11 +50,11 @@ function ProductDetails(props) {
                             <h3 className="ui brown block header">
                                 {category}</h3>
                             <p>{description}</p>
-                            <div className="ui vertical animated button" tabIndex="0">
+                            <div onClick={addToCart} className="ui vertical animated button" tabIndex="0">
                                 <div className="hidden content">
-                                    <i className="shop icon"></i>
+                                    <i  className="shop icon"></i>
                                 </div>
-                                <div className="visible content">Add To Cart</div>
+                                <div className="visible content" >Add To Cart</div>
                             </div>
 
                         </div>
